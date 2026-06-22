@@ -1,0 +1,39 @@
+---
+title: Standalone CLI
+---
+
+import { PackageManagers } from "starlight-package-managers";
+
+OctoGuide also provides a standalone `octoguide` CLI you can run outside GitHub Actions.
+`octoguide` can analyze a GitHub contribution and preview what rule violations that the OctoGuide action would report for it.
+This CLI to use the same underlying [API](/generated/api) as also used in the [GitHub Action](https://octo.guide/get-started#installation).
+
+<PackageManagers
+	args="https://github.com/OctoGuide/bot/issues/19"
+	pkg="octoguide"
+	type="dlx"
+/>
+
+```plaintext
+Found 0 reports. Great! ✅
+```
+
+:::note
+The `octoguide` CLI only logs pretty-printed reports back in your terminal.
+It does not create comments or otherwise post any data to GitHub.
+:::
+
+The `octoguide` CLI takes in one required positional argument for the activity to be scanned.
+
+## Flags
+
+### `--config`
+
+Which [preset config](/configs) to use, as either:
+
+- `recommended` _(default)_
+- `strict`
+
+```shell
+npx octoguide OctoGuide/bot/issues/19 --config strict
+```
