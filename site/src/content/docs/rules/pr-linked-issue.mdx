@@ -1,0 +1,78 @@
+---
+description: "PRs should be linked as closing an issue"
+title: "pr-linked-issue"
+---
+
+import OctoGuideGitHubComment from "../../../components/OctoGuideGitHubComment.astro";
+import IncludedIn from "../../../components/IncludedIn.astro";
+
+<IncludedIn rule="pr-linked-issue" />
+
+A repository using this rule keeps to GitHub issues for discussing potential changes.
+Most or all changes should be marked as approved in an issue before a pull request is sent to resolve them.
+
+## Linking an Issue
+
+To link a pull request to an issue:
+
+1. Make sure there's an issue describing what you want to happen
+2. Add text in the format `closes #...` or `fixes #...` in your PR, such as `fixes #123`
+
+## Dependabot Security Alerts
+
+Pull requests that address Dependabot security alerts don't need a separate issue.
+You can satisfy this rule by including a link to the Dependabot alert in your PR body:
+
+```
+fixes https://github.com/owner/repo/security/dependabot/123
+```
+
+This recognizes that security vulnerability fixes often don't need the same discussion process as other changes.
+
+## Why Require Issues?
+
+Requiring all contributor pull requests address an open issue adds process to a repository.
+Not all repositories prefer this.
+Some prefer to instead make it as straightforward as possible to send a pull request, and then only move conversations to issues as needed.
+
+The advantages of starting with issues are:
+
+- Consolidation: most or all conversations are moved to a single place, the issue tracker
+- Discoverability: it's much easier to search within just the issue tracker, rather than also looking through ad hoc pull request discussions
+- Tracking: issues often use different their own sets of labels tailored to their conversations
+
+Most importantly, if you're contributing to a repository with a contribution guide, please read and respect that contribution guide.
+
+## Examples
+
+[PR not linked to an existing issue](https://github.com/OctoGuide/examples/pull/6#issuecomment-2839460254):
+
+<OctoGuideGitHubComment rule="pr-linked-issue">
+This pull request is not linked as closing any issues.
+This repository keeps to GitHub issues for discussing potential changes.
+Most or all changes should be marked as approved in an issue before a pull request is sent to resolve them.
+To resolve this report:
+
+<ol>
+	<li>
+		If this is a straightforward documentation change that doesn't need an
+		issue, you can ignore this report
+	</li>
+	<li>
+		If there is a backing issue, add a 'fixes #...' link to the pull request
+		body
+	</li>
+	<li>
+		If addressing a Dependabot alert, add a link to the alert (e.g.,
+		https://github.com/owner/repo/security/dependabot/123)
+	</li>
+	<li>Otherwise, file an issue explaining what you'd like to happen</li>
+</ol>
+
+</OctoGuideGitHubComment>
+
+## See More
+
+- [GitHub Docs: Linking a pull request to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/linking-a-pull-request-to-an-issue)
+- [Rule source](https://github.com/OctoGuide/bot/blob/main/src/rules/prLinkedIssue.ts)
+- [Rule tests](https://github.com/OctoGuide/bot/blob/main/src/rules/prLinkedIssue.test.ts)
