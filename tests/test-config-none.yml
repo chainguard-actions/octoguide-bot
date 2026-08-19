@@ -1,23 +1,19 @@
-name: Test config none - all rules disabled
+name: Test config none
 on:
   workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with config none (no rules applied)
-        id: action
+      - id: action
         uses: .
         with:
           config: none
+        # With config=none, all rules are disabled. The action may still exit
+        # non-zero when there is no PR/issue context under workflow_dispatch.
         continue-on-error: true
-      - name: Assert action ran (outcome is success or failure, not skipped/cancelled)
+      - name: Assert action ran (not skipped or cancelled)
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |

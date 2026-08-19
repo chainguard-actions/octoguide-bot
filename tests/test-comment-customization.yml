@@ -1,4 +1,4 @@
-name: Test custom rules JSON input
+name: Test comment-header and comment-footer inputs
 on:
   workflow_dispatch:
 jobs:
@@ -10,8 +10,9 @@ jobs:
         uses: .
         with:
           config: none
-          rules: '{"no-hello": "off"}'
-        # Passing a JSON rules object tests that the input is accepted and parsed.
+          comment-header: "## OctoGuide Review"
+          comment-footer: "_Powered by OctoGuide_"
+        # Testing that comment-header and comment-footer inputs are accepted.
         # The action may exit non-zero when there is no PR/issue context under
         # workflow_dispatch, so we allow failure and assert on the outcome.
         continue-on-error: true

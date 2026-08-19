@@ -1,21 +1,18 @@
-name: Test basic usage - default config
+name: Test basic usage
 on:
   workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with default config (no token - expect graceful failure)
-        id: action
+      - id: action
         uses: .
         with:
           config: recommended
+        # The action may exit non-zero when there is no PR/issue context
+        # (workflow_dispatch has no associated pull request or issue).
+        # We allow failure here and assert on the outcome below.
         continue-on-error: true
       - name: Assert action ran (outcome is success or failure, not skipped/cancelled)
         env:
@@ -26,4 +23,4 @@ jobs:
             echo "FAIL: action was skipped or cancelled unexpectedly"
             exit 1
           fi
-          echo "PASS: action ran with outcome=$OUTCOME (success or graceful failure expected)"
+          echo "PASS: action ran with outcome=$OUTCOME"

@@ -4,20 +4,23 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - id: action
         uses: .
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           config: none
         continue-on-error: true
       - name: Assert action ran with github-token input
         run: |
-          echo "Action completed (with or without API errors due to test environment)"
-          echo "PASS: github-token input was accepted"
+          echo "Action completed (outcome: ${{ steps.action.outcome }})"
+          # The action may fail if there is no PR/issue context, but it must
+          # at least start — a missing-input or auth error would be a different
+          # failure mode. We accept both success and failure here because
+          # workflow_dispatch has no PR/issue to act on.
+          if [ "${{ steps.action.outcome }}" = "skipped" ]; then
+            echo "FAIL: action was skipped unexpectedly"
+            exit 1
+          fi
+          echo "PASS: github-token input was accepted and action ran"

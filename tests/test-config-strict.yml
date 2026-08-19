@@ -1,4 +1,4 @@
-name: Test custom rules JSON input
+name: Test config strict
 on:
   workflow_dispatch:
 jobs:
@@ -9,11 +9,9 @@ jobs:
       - id: action
         uses: .
         with:
-          config: none
-          rules: '{"no-hello": "off"}'
-        # Passing a JSON rules object tests that the input is accepted and parsed.
-        # The action may exit non-zero when there is no PR/issue context under
-        # workflow_dispatch, so we allow failure and assert on the outcome.
+          config: strict
+        # With config=strict, stricter rules are applied. The action may still
+        # exit non-zero when there is no PR/issue context under workflow_dispatch.
         continue-on-error: true
       - name: Assert action ran (not skipped or cancelled)
         env:
