@@ -1,0 +1,18 @@
+name: Test rules JSON config
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Run OctoGuide action with custom rules JSON
+        id: action
+        uses: .
+        with:
+          github-token: ${{ github.token }}
+          rules: '{"no-hello": true}'
+      - name: Assert action completed successfully with rules config
+        run: |
+          echo "Action completed without error (exit 0) with custom rules JSON"
+          echo "PASS: OctoGuide action ran successfully with custom rules JSON config"

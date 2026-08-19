@@ -4,27 +4,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - id: action
+      - name: Run OctoGuide action with strict config
+        id: action
         uses: .
         with:
+          github-token: ${{ github.token }}
           config: strict
-          github-token: fake-token-for-testing
-        continue-on-error: true
-      - name: Assert action ran with strict config
-        env:
-          OUTCOME: ${{ steps.action.outcome }}
+      - name: Assert action completed successfully with strict config
         run: |
-          echo "outcome: $OUTCOME"
-          if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action ran with strict config and produced an outcome"
-          else
-            echo "FAIL: unexpected outcome '$OUTCOME'"
-            exit 1
-          fi
+          echo "Action completed without error (exit 0) using strict config"
+          echo "PASS: OctoGuide action ran successfully with strict config under workflow_dispatch"
