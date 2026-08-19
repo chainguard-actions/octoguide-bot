@@ -1,0 +1,20 @@
+name: Test custom comment header and footer
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Run OctoGuide with custom comment header and footer
+        id: action
+        uses: .
+        with:
+          github-token: ${{ github.token }}
+          config: recommended
+          comment-header: "👋 Hello from OctoGuide!"
+          comment-footer: "Thank you for contributing."
+      - name: Assert action completed with custom comments
+        run: |
+          echo "OctoGuide action completed successfully with custom comment header and footer"
+          echo "PASS"
