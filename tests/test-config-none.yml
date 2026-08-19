@@ -1,4 +1,4 @@
-name: Test basic usage
+name: Test config none
 on:
   workflow_dispatch:
 jobs:
@@ -6,21 +6,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with default config
+      - name: Run OctoGuide with config none (all rules disabled)
         id: action
         uses: .
         with:
           github-token: ${{ github.token }}
+          config: none
         continue-on-error: true
       - name: Assert action ran without unexpected crash
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "outcome: $OUTCOME"
-          # The action may succeed or fail gracefully (no PR context under workflow_dispatch)
-          # but it must not be 'cancelled' or produce an infrastructure error
           if [ "$OUTCOME" = "cancelled" ]; then
             echo "FAIL: action was cancelled unexpectedly"
             exit 1
           fi
-          echo "PASS: action completed with outcome=$OUTCOME (success or graceful failure expected)"
+          echo "PASS: action completed with outcome=$OUTCOME when config=none"

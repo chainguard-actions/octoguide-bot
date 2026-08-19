@@ -1,32 +1,30 @@
-name: Test custom comment options and include-associations
+name: Test custom options
 on:
   workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with custom header, footer, and associations
+      - name: Run OctoGuide with custom comment header, footer, and rules
         id: action
         uses: .
         with:
-          config: none
           github-token: ${{ github.token }}
-          comment-header: "## OctoGuide Review"
-          comment-footer: "Thank you for your contribution!"
-          include-associations: "FIRST_TIMER,FIRST_TIME_CONTRIBUTOR"
-          include-bots: "false"
+          config: recommended
+          comment-header: "👋 Hello from OctoGuide!"
+          comment-footer: "Thank you for contributing."
+          include-bots: "true"
+          include-associations: "FIRST_TIMER,FIRST_TIME_CONTRIBUTOR,CONTRIBUTOR,COLLABORATOR"
+          rules: '{"no-hello": "off"}'
         continue-on-error: true
-      - name: Assert action ran with custom options
+      - name: Assert action ran without unexpected crash
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
         run: |
-          echo "Action outcome: ${{ steps.action.outcome }}"
-          if [ "${{ steps.action.outcome }}" = "skipped" ]; then
-            echo "FAIL: action was skipped unexpectedly"
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" = "cancelled" ]; then
+            echo "FAIL: action was cancelled unexpectedly"
             exit 1
           fi
-          echo "PASS: action ran with outcome ${{ steps.action.outcome }}"
+          echo "PASS: action completed with outcome=$OUTCOME when using custom options"

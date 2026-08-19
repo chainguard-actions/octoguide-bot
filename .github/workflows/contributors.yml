@@ -1,0 +1,27 @@
+jobs:
+  contributors:
+    runs-on: ubuntu-latest
+    steps:
+      - id: app-token
+        name: 🪙 Get app token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        with:
+          app-id: ${{ vars.all_contributors_app_id }}
+          private-key: ${{ secrets.all_contributors_private_key }}
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/prepare
+      - env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+        uses: JoshuaKGoldberg/all-contributors-auto-action@944abe4387e751b5bbb38616cb25cf4a4ca998f2 # v0.5.0
+
+name: Contributors
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
