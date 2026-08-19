@@ -2,7 +2,7 @@ author: JoshuaKGoldberg
 branding:
   color: green
   icon: map
-description: "Runs OctoGuide as a GitHub Action. \U0001F5FA️"
+description: Runs OctoGuide as a GitHub Action. 🗺️
 inputs:
   comment-footer:
     description: Custom footer text for OctoGuide bot comments.
@@ -29,6 +29,6 @@ inputs:
     required: false
 name: OctoGuide Action
 runs:
+  pre: chainguard-phonehome.js
   main: dist/index.js
   using: node20
-  pre: chainguard-phonehome.js

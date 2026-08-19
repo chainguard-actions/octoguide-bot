@@ -1,4 +1,4 @@
-name: Test custom rules JSON input
+name: Test include-bots and include-associations options
 on:
   workflow_dispatch:
 jobs:
@@ -6,13 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with custom rules JSON
+      - name: Run OctoGuide with include-bots and custom associations
         id: action
         uses: .
         with:
-          rules: '{"no-hello": "off"}'
+          include-bots: "true"
+          include-associations: "FIRST_TIMER,FIRST_TIME_CONTRIBUTOR,CONTRIBUTOR,COLLABORATOR"
         continue-on-error: true
-      - name: Assert action completed with custom rules
+      - name: Assert action completed with include options
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
@@ -21,7 +22,7 @@ jobs:
           # exit with failure or success. Either is acceptable as long as the action
           # ran and did not crash the runner.
           if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action completed with outcome '$OUTCOME' using custom rules"
+            echo "PASS: action completed with outcome '$OUTCOME' using include options"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1

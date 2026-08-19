@@ -1,4 +1,4 @@
-name: Test custom rules JSON input
+name: Test custom comment header and footer
 on:
   workflow_dispatch:
 jobs:
@@ -6,13 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with custom rules JSON
+      - name: Run OctoGuide with custom comment header and footer
         id: action
         uses: .
         with:
-          rules: '{"no-hello": "off"}'
+          comment-header: "## OctoGuide Review"
+          comment-footer: "Powered by OctoGuide 🗺️"
         continue-on-error: true
-      - name: Assert action completed with custom rules
+      - name: Assert action completed with custom comment inputs
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
@@ -21,7 +22,7 @@ jobs:
           # exit with failure or success. Either is acceptable as long as the action
           # ran and did not crash the runner.
           if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
-            echo "PASS: action completed with outcome '$OUTCOME' using custom rules"
+            echo "PASS: action completed with outcome '$OUTCOME' using custom comment inputs"
           else
             echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1

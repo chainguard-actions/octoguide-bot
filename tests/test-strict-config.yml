@@ -1,33 +1,28 @@
-name: Test strict config with custom comment options
+name: Test strict config
 on:
   workflow_dispatch:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_EVENT_NAME: pull_request
-      GITHUB_REF: refs/pull/1/merge
-      GITHUB_HEAD_REF: feature-branch
-      GITHUB_BASE_REF: main
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Run OctoGuide with strict config and custom comment options
+      - name: Run OctoGuide with strict config
         id: action
         uses: .
         with:
           config: strict
-          comment-header: "## OctoGuide Review"
-          comment-footer: "---\n*Powered by OctoGuide*"
-          include-bots: "true"
-          include-associations: "FIRST_TIMER,FIRST_TIME_CONTRIBUTOR,CONTRIBUTOR,COLLABORATOR"
         continue-on-error: true
-      - name: Assert action ran (outcome is success or failure, not skipped/cancelled)
+      - name: Assert action completed with strict config
         env:
           OUTCOME: ${{ steps.action.outcome }}
         run: |
           echo "outcome: $OUTCOME"
-          if [ "$OUTCOME" = "skipped" ] || [ "$OUTCOME" = "cancelled" ]; then
-            echo "FAIL: action was skipped or cancelled unexpectedly"
+          # Under workflow_dispatch there is no PR/issue context, so the action may
+          # exit with failure (no entity to process) or success. Either is acceptable
+          # as long as the action ran and did not crash the runner.
+          if [ "$OUTCOME" = "success" ] || [ "$OUTCOME" = "failure" ]; then
+            echo "PASS: action completed with outcome '$OUTCOME' using strict config"
+          else
+            echo "FAIL: unexpected outcome '$OUTCOME'"
             exit 1
           fi
-          echo "PASS: action ran with outcome=$OUTCOME"
