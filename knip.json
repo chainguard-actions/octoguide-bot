@@ -1,0 +1,14 @@
+{
+	"$schema": "https://unpkg.com/knip@5/schema.json",
+	"treatConfigHintsAsErrors": true,
+	"ignoreExportsUsedInFile": { "interface": true, "type": true },
+	"workspaces": {
+		".": {
+			"entry": ["src/action/index.ts", "src/cli.ts", "src/**/*.test.*"],
+			"ignore": ["dist/index.js"]
+		},
+		"site": {
+			"ignoreDependencies": ["sharp"]
+		}
+	}
+}

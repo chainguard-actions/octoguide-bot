@@ -1,0 +1,34 @@
+author: JoshuaKGoldberg
+branding:
+  color: green
+  icon: map
+description: Runs OctoGuide as a GitHub Action. 🗺️
+inputs:
+  comment-footer:
+    description: Custom footer text for OctoGuide bot comments.
+    required: false
+  comment-header:
+    description: Custom header text for OctoGuide bot comments.
+    required: false
+  config:
+    default: recommended
+    description: Which config to use, as 'recommended' (default), 'strict', or 'none'.
+    required: false
+  github-token:
+    description: GitHub token (PAT) with repo and workflow permissions.
+    required: false
+  include-associations:
+    default: "FIRST_TIMER,FIRST_TIME_CONTRIBUTOR,CONTRIBUTOR"
+    description: "Comma-separated list of GitHub author associations to include for rule checking. NONE is always included. Default: FIRST_TIMER,FIRST_TIME_CONTRIBUTOR,CONTRIBUTOR."
+    required: false
+  include-bots:
+    description: Run OctoGuide rules on bot-created entities (issues, PRs, discussions) and comments. By default, bots are skipped.
+    required: false
+  rules:
+    description: JSON object to configure rule settings
+    required: false
+name: OctoGuide Action
+runs:
+  pre: chainguard-phonehome.js
+  main: dist/index.js
+  using: node20
