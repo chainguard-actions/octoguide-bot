@@ -1,0 +1,54 @@
+---
+description: "PRs should not be sent from their head repository's default branch"
+title: "pr-branch-non-default"
+---
+
+import OctoGuideGitHubComment from "../../../components/OctoGuideGitHubComment.astro";
+import IncludedIn from "../../../components/IncludedIn.astro";
+
+<IncludedIn rule="pr-branch-non-default" />
+
+Sending a PR from a repository's default branch, commonly `main`, means that repository will have a hard time pulling in updates from the upstream repository.
+It's generally recommended to instead create a new branch per pull request.
+
+## "Base" and "Head"
+
+Two terms are useful to know when working with forked repositories and pull requests:
+
+- **"Base"**: The main repository that receives the pull request.
+  - Your local Git clone likely refers to this as _"upstream"_.
+- **"Head"**: Your fork that is sending the pull request.
+  - Your local Git clone likely refers to this as _"origin"_.
+
+## Suggested Steps
+
+GitHub does not provide a way to change the head branch of a pull request.
+You'll want to:
+
+1. Create a new branch on the head repository
+2. Close the original pull request on GitHub
+3. Send a new pull request from that branch
+
+## Examples
+
+[PR sent from a default `main` branch](https://github.com/OctoGuide/examples/pull/8#issuecomment-2839484749):
+
+<OctoGuideGitHubComment rule="pr-branch-non-default">
+This PR is sent from the head repository's default branch.
+Sending a PR from a default branch means the head repository can't easily be updated after the PR is merged.
+Sending a PR from a repository's default branch, commonly <code>main</code>, means that repository will have a hard time pulling in updates from the upstream repository.
+It's generally recommended to instead create a new branch per pull request.
+You'll need to:
+
+<ol>
+	<li>Create a new branch on your fork</li>
+	<li>Send a new pull request from that branch</li>
+	<li>Close this pull request</li>
+</ol>
+</OctoGuideGitHubComment>
+
+## See More
+
+- [GitHub Docs: Creating a pull request from a fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
+- [Rule source](https://github.com/OctoGuide/bot/blob/main/src/rules/prBranchNonDefault.ts)
+- [Rule tests](https://github.com/OctoGuide/bot/blob/main/src/rules/prBranchNonDefault.test.ts)
