@@ -1,0 +1,68 @@
+---
+description: "Tasks lists from the pull request template should be [x] filled out"
+title: "pr-task-completion"
+---
+
+import OctoGuideGitHubComment from "../../../components/OctoGuideGitHubComment.astro";
+import IncludedIn from "../../../components/IncludedIn.astro";
+
+<IncludedIn rule="pr-task-completion" />
+
+Repositories often provide a set of tasks that pull request authors are expected to complete.
+Those tasks should be marked as completed with a `[x]` in the pull request description.
+
+Repositories often include a template file for pull requests, commonly `.github/PULL_REQUEST_TEMPLATE.md`.
+Contributors are expected to fill out that template file for their pull request descriptions.
+Template files with `- [ ]` task lists are generally expected to `[x]` fill out every item in the list to confirm they've taken that step.
+
+```md
+- [x] Added tests
+```
+
+## Optional Task Lists
+
+GitHub-flavored Markdown does not provide a way to indicate which task list items are optional or required.
+This rule cannot statically determine which tasks must have a `[x]`.
+
+If you don't believe a task needs to be completed, consider marking the task's text with `~~` strikethrough and explaining why.
+For example, the following markdown:
+
+```md
+- [x] ~~Added tests~~ Docs-only change
+```
+
+...is rendered as:
+
+- [x] ~~Added tests~~ Docs-only change
+
+## Examples
+
+[Pull request missing task list items](https://github.com/OctoGuide/examples/pull/4#issuecomment-2839280872):
+
+<OctoGuideGitHubComment rule="pr-task-completion">
+This PR's body is missing <code>[x]</code> checks on the following tasks from the PR template.
+
+<blockquote>
+	<ul>
+		<li>
+			<input type="checkbox"></input>That issue was marked as{" "}
+			<code>status: accepting prs</code>
+		</li>
+		<li>
+			<input type="checkbox"></input>Steps in CONTRIBUTING.md were taken
+		</li>
+	</ul>
+</blockquote>
+
+Repositories often provide a set of tasks that pull request authors are expected to complete.
+Those tasks should be marked as completed with a <code>[x]</code> in the pull request description.
+Please complete those tasks and mark the checks as <code>[x]</code> completed.
+
+</OctoGuideGitHubComment>
+
+## See More
+
+- [GitHub Docs: About issue and pull request templates](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/about-issue-and-pull-request-templates)
+- [GitHub Docs: About task lists](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/about-task-lists)
+- [Rule source](https://github.com/OctoGuide/bot/blob/main/src/rules/prTaskCompletion.ts)
+- [Rule tests](https://github.com/OctoGuide/bot/blob/main/src/rules/prTaskCompletion.test.ts)

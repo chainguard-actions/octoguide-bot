@@ -1,0 +1,118 @@
+{
+  "badgeTemplate": "\t<a href=\"#contributors\" target=\"_blank\"><img alt=\"👪 All Contributors: <%= contributors.length %>\" src=\"https://img.shields.io/badge/%F0%9F%91%AA_all_contributors-<%= contributors.length %>-21bb42.svg\" /></a>",
+  "commitType": "docs",
+  "contributors": [
+    {
+      "avatar_url": "https://avatars.githubusercontent.com/u/3335181?v=4",
+      "contributions": [
+        "bug",
+        "code",
+        "content",
+        "doc",
+        "ideas",
+        "infra",
+        "maintenance",
+        "projectManagement",
+        "tool",
+        "test",
+        "design"
+      ],
+      "login": "JoshuaKGoldberg",
+      "name": "Josh Goldberg ✨",
+      "profile": "http://www.joshuakgoldberg.com"
+    },
+    {
+      "login": "phryneas",
+      "name": "Lenz Weber-Tronic",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4282439?v=4",
+      "profile": "https://phryneas.de",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "azat-io",
+      "name": "Azat S.",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5698350?v=4",
+      "profile": "http://azat.io",
+      "contributions": [
+        "bug",
+        "code",
+        "ideas",
+        "doc"
+      ]
+    },
+    {
+      "login": "franky47",
+      "name": "François Best",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1174092?v=4",
+      "profile": "https://francoisbest.com/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "fabioatcorreia",
+      "name": "Fábio Correia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22024644?v=4",
+      "profile": "https://github.com/fabioatcorreia",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "cylewaitforit",
+      "name": "cylewaitforit",
+      "avatar_url": "https://avatars.githubusercontent.com/u/54253392?v=4",
+      "profile": "https://github.com/cylewaitforit",
+      "contributions": [
+        "ideas",
+        "doc",
+        "tool",
+        "code",
+        "maintenance",
+        "bug",
+        "test"
+      ]
+    },
+    {
+      "login": "jcamino",
+      "name": "Javier Camino",
+      "avatar_url": "https://avatars.githubusercontent.com/u/892117?v=4",
+      "profile": "https://github.com/jcamino",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "lennonnikolas",
+      "name": "Nikolas Lennon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22141194?v=4",
+      "profile": "https://github.com/lennonnikolas",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "lishaduck",
+      "name": "Eli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88557639?v=4",
+      "profile": "http://lishaduck.github.io",
+      "contributions": [
+        "bug",
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "contributorsSortAlphabetically": true,
+  "files": [
+    "README.md"
+  ],
+  "projectName": "bot",
+  "projectOwner": "octoguide",
+  "repoType": "github",
+  "commitConvention": "angular"
+}

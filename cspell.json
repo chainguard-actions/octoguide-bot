@@ -1,0 +1,35 @@
+{
+	"dictionaries": ["npm", "node", "typescript"],
+	"ignorePaths": [
+		".all-contributorsrc",
+		".github",
+		"CHANGELOG.md",
+		"coverage",
+		"dist",
+		"dist-site",
+		"lib",
+		"node_modules",
+		"pnpm-lock.yaml",
+		"site/.astro",
+		"site/node_modules",
+		"site/src/content/docs/generated"
+	],
+	"words": [
+		"amannn",
+		"astropub",
+		"discussioncomment",
+		"frontmatter",
+		"grayscale",
+		"issuecomment",
+		"lintable",
+		"mtfoley",
+		"octo.guide",
+		"octocat",
+		"octoguide",
+		"postbuild",
+		"screenreaders",
+		"unminimize",
+		"unminimized",
+		"varela"
+	]
+}
