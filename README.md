@@ -17,6 +17,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | 0.23.0 | [`0.23.0`](https://github.com/chainguard-actions/octoguide-bot/tree/0.23.0) | [`b0e0d2e`](https://github.com/octoguide/bot/commit/b0e0d2ea16691da32a27a57b6281c99303399328) |
 | 0.23.2 | [`0.23.2`](https://github.com/chainguard-actions/octoguide-bot/tree/0.23.2) | [`990f9bb`](https://github.com/octoguide/bot/commit/990f9bb3d914189128a7fd7d01490a2d9037e1f1) |
 | 0.23.3 | [`0.23.3`](https://github.com/chainguard-actions/octoguide-bot/tree/0.23.3) | [`7a78d14`](https://github.com/octoguide/bot/commit/7a78d1449eb1c0b6e3a1f1e7e7eccb5232fd02b5) |
+| 0.23.4 | [`0.23.4`](https://github.com/chainguard-actions/octoguide-bot/tree/0.23.4) | [`a75c6be`](https://github.com/octoguide/bot/commit/a75c6beb5d97acc7832343bef749a7933218ccc0) |
 
 ## Privacy
 
