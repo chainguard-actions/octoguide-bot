@@ -1,0 +1,53 @@
+---
+description: "Comments should be meaningful, not just '+1'-style bumps"
+title: "comment-meaningful"
+---
+
+import OctoGuideGitHubComment from "../../../components/OctoGuideGitHubComment.astro";
+import IncludedIn from "../../../components/IncludedIn.astro";
+
+<IncludedIn rule="comment-meaningful" />
+
+Posting replies containing just _"+1"_, _any update?"_, or other phrases without new information don't meaningfully contribute to a discussion.
+If done too much, they can even become disruptive to other contributors.
+
+The negative impacts of uninformative comments include:
+
+- They send a notification to everybody subscribed to the issue or PR
+- They take up space and crowd out more meaningful comments
+
+## Alternatives to "+1"s and "-1"s
+
+Enthusiasm for an issue is great, but posting just a _+1_ or _me too_ isn't an effective way to make your case.
+If you have new information not yet posted then it's best to post that to support your opinion.
+Otherwise, stick to [GitHub emoji reactions](https://github.blog/news-insights/product-news/add-reactions-to-pull-requests-issues-and-comments).
+
+## Alternatives to Asking for Updates
+
+Most open source repositories perform all activity in public.
+If there is any progress made, such as a PR being sent or updated, you'll see it publicly.
+There's no need to explicitly ask for updates in repos that work in public this way.
+
+## Examples
+
+[Comment that only states _"+1"_](https://github.com/OctoGuide/examples/issues/2#issuecomment-2839206981):
+
+<OctoGuideGitHubComment rule="comment-meaningful">
+	Saying just <em>"+1"</em> doesn't add any new information to the discussion.
+	Replies containing just <em>"+1"</em>, <em>"any update?"</em>, or other
+	phrases without new information aren't helpful. They cause unnecessary
+	notifications for other contributors and take up space. To resolve this
+	report:
+	<ul>
+		<li>
+			If you have new information that'll help the discussion, edit it into the
+			comment
+		</li>
+		<li>Otherwise, delete the comment and emoji react to the issue</li>
+	</ul>
+</OctoGuideGitHubComment>
+
+## See More
+
+- [Rule source](https://github.com/OctoGuide/bot/blob/main/src/rules/commentMeaningless.ts)
+- [Rule tests](https://github.com/OctoGuide/bot/blob/main/src/rules/commentMeaningless.test.ts)
