@@ -1,0 +1,31 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"automerge": true,
+	"extends": [
+		":preserveSemverRanges",
+		"config:best-practices",
+		"replacements:all"
+	],
+	"labels": ["dependencies"],
+	"minimumReleaseAge": "7 days",
+	"patch": { "enabled": false },
+	"postUpdateOptions": ["pnpmDedupe"],
+	"packageRules": [
+		{
+			"matchDatasources": ["npm"],
+			"minimumReleaseAge": "7 days"
+		},
+		{
+			"description": "Default to PNPM Minimum Release Age for package replacements",
+			"matchDatasources": ["npm"],
+			"matchUpdateTypes": ["replacement"],
+			"minimumReleaseAge": null
+		},
+		{
+			"automerge": false,
+			"description": "Codecov action majors have changed defaults, so require manual review",
+			"matchPackageNames": ["codecov/codecov-action"],
+			"matchUpdateTypes": ["major"]
+		}
+	]
+}
