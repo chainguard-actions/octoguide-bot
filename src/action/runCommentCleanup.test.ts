@@ -1,0 +1,215 @@
+import type * as github from "@actions/github";
+
+import { describe, expect, it, vi } from "vitest";
+
+import { runCommentCleanup } from "./runCommentCleanup.ts";
+
+const mockCore = {
+	info: vi.fn(),
+};
+
+vi.mock("@actions/core", () => ({
+	get info() {
+		return mockCore.info;
+	},
+}));
+
+const mockCreateActor = vi.fn();
+
+vi.mock("../actors/createActor.ts", () => ({
+	get createActor() {
+		return mockCreateActor;
+	},
+}));
+
+const mockGetExistingComment = vi.fn();
+
+vi.mock("./comments/getExistingComment.ts", () => ({
+	get getExistingComment() {
+		return mockGetExistingComment;
+	},
+}));
+
+const auth = "gho_...";
+const url = "/repos/owner/repo/issues/1";
+
+describe(runCommentCleanup, () => {
+	it("does nothing when the payload does not contain a comment", async () => {
+		const payload = {
+			issue: {},
+		} as typeof github.context.payload;
+
+		await runCommentCleanup({ auth, payload, url });
+
+		expect(mockCreateActor).not.toHaveBeenCalled();
+	});
+
+	it("throws an error when the actor cannot be resolved", async () => {
+		const payload = {
+			comment: {},
+		} as typeof github.context.payload;
+
+		mockCreateActor.mockResolvedValueOnce({});
+
+		await expect(runCommentCleanup({ auth, payload, url })).rejects.toThrow(
+			"Could not resolve GitHub entity actor.",
+		);
+	});
+
+	it("logs info without throwing when an existing comment cannot be found", async () => {
+		const payload = {
+			comment: {},
+		} as typeof github.context.payload;
+
+		mockCreateActor.mockResolvedValueOnce({ actor: {}, octokit: {} });
+		mockGetExistingComment.mockResolvedValueOnce(undefined);
+
+		await runCommentCleanup({ auth, payload, url });
+		expect(mockCore.info).toHaveBeenCalledWith(
+			"No existing comment found. Nothing to clean up.",
+		);
+	});
+
+	it("deletes the comment when it exists as a discussion comment", async () => {
+		const payload = {
+			comment: { id: 123 },
+			discussion: {},
+		} as typeof github.context.payload;
+		const nodeId = "abc123";
+		const graphql = vi.fn();
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: { graphql },
+		});
+		mockGetExistingComment.mockResolvedValueOnce({
+			node_id: nodeId,
+		});
+
+		await runCommentCleanup({ auth, payload, url });
+		expect(mockCore.info).toHaveBeenCalledWith(
+			`Deleting discussion comment with node id: ${nodeId}`,
+		);
+		expect(graphql).toHaveBeenCalledWith(
+			expect.stringContaining("deleteDiscussionComment(input: { id: $id })"),
+			{ id: nodeId },
+		);
+	});
+
+	it("deletes the comment when it exists as an issue-like comment", async () => {
+		const id = 123;
+		const payload = {
+			comment: { id },
+			issue: {},
+		} as typeof github.context.payload;
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: { rest: { issues: { deleteComment: vi.fn() } } },
+		});
+		mockGetExistingComment.mockResolvedValueOnce({ id });
+
+		await runCommentCleanup({ auth, payload, url });
+		expect(mockCore.info).toHaveBeenCalledWith(
+			`Deleting issue-like comment with id: ${id}`,
+		);
+	});
+
+	it("logs info without throwing when a discussion comment was already deleted", async () => {
+		const payload = {
+			comment: { id: 123 },
+			discussion: {},
+		} as typeof github.context.payload;
+		const error = Object.assign(
+			new Error("Could not resolve to a node with the global id of 'abc123'"),
+			{
+				errors: [
+					{
+						message:
+							"Could not resolve to a node with the global id of 'abc123'",
+						type: "NOT_FOUND",
+					},
+				],
+				name: "GraphqlResponseError",
+			},
+		);
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: { graphql: vi.fn().mockRejectedValueOnce(error) },
+		});
+		mockGetExistingComment.mockResolvedValueOnce({ node_id: "abc123" });
+
+		await runCommentCleanup({ auth, payload, url });
+		expect(mockCore.info).toHaveBeenCalledWith(
+			"Existing comment was already deleted. Nothing to clean up.",
+		);
+	});
+
+	it("throws when deleting a discussion comment fails for another reason", async () => {
+		const payload = {
+			comment: { id: 123 },
+			discussion: {},
+		} as typeof github.context.payload;
+		const error = Object.assign(new Error("Something went wrong"), {
+			errors: [{ message: "Something went wrong", type: "FORBIDDEN" }],
+			name: "GraphqlResponseError",
+		});
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: { graphql: vi.fn().mockRejectedValueOnce(error) },
+		});
+		mockGetExistingComment.mockResolvedValueOnce({ node_id: "abc123" });
+
+		await expect(runCommentCleanup({ auth, payload, url })).rejects.toBe(error);
+	});
+
+	it("logs info without throwing when an issue-like comment was already deleted", async () => {
+		const id = 123;
+		const payload = {
+			comment: { id },
+			issue: {},
+		} as typeof github.context.payload;
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: {
+				rest: {
+					issues: {
+						deleteComment: vi
+							.fn()
+							.mockRejectedValueOnce({ message: "Not Found", status: 404 }),
+					},
+				},
+			},
+		});
+		mockGetExistingComment.mockResolvedValueOnce({ id });
+
+		await runCommentCleanup({ auth, payload, url });
+		expect(mockCore.info).toHaveBeenCalledWith(
+			"Existing comment was already deleted. Nothing to clean up.",
+		);
+	});
+
+	it("throws when deleting an issue-like comment fails for another reason", async () => {
+		const id = 123;
+		const payload = {
+			comment: { id },
+			issue: {},
+		} as typeof github.context.payload;
+		const error = { message: "Forbidden", status: 403 };
+
+		mockCreateActor.mockResolvedValueOnce({
+			actor: {},
+			octokit: {
+				rest: {
+					issues: { deleteComment: vi.fn().mockRejectedValueOnce(error) },
+				},
+			},
+		});
+		mockGetExistingComment.mockResolvedValueOnce({ id });
+
+		await expect(runCommentCleanup({ auth, payload, url })).rejects.toBe(error);
+	});
+});
