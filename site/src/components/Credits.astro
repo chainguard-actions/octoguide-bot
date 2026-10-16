@@ -1,0 +1,51 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div class:list={["credits", Astro.props.class]} {...props}>
+	<p>
+		Made with 💚 by{" "}
+		<a href="https://github.com/cylewaitforit" target="_blank">
+			Cyle
+		</a>{" "}
+		and{" "}
+		<a href="https://joshuakgoldberg.com" target="_blank">
+			Josh
+		</a>
+		.
+	</p>
+	<p>
+		<a
+			href="https://github.com/OctoGuide/bot/blob/main/.github/CODE_OF_CONDUCT.md"
+			target="_blank"
+		>
+			Code of Conduct
+		</a>
+	</p>
+</div>
+
+<style>
+	.credits {
+		border-top: 1px solid var(--sl-color-gray-6);
+		color: var(--sl-color-gray-3);
+		margin-top: clamp(2rem, calc(0.25rem + 6vw), 5rem);
+		padding-top: clamp(1rem, calc(0.125rem + 3vw), 2.5rem);
+		text-align: center;
+	}
+
+	.credits a {
+		color: var(--sl-color-gray-2);
+	}
+
+	.credits p {
+		margin: 0;
+	}
+
+	.credits p + p {
+		margin-top: 0.5rem;
+	}
+</style>
