@@ -1,0 +1,41 @@
+{
+	"dictionaries": ["ai-agents", "npm", "node", "typescript"],
+	"dictionaryDefinitions": [
+		{ "name": "ai-agents", "path": "./.cspell/ai-agents.txt" }
+	],
+	"ignorePaths": [
+		".all-contributorsrc",
+		".github",
+		"CHANGELOG.md",
+		"coverage",
+		"dist",
+		"dist-site",
+		"lib",
+		"node_modules",
+		"pnpm-lock.yaml",
+		"site/.astro",
+		"site/node_modules",
+		"site/src/content/docs/generated"
+	],
+	"words": [
+		"amannn",
+		"astropub",
+		"cyle",
+		"discussioncomment",
+		"frontmatter",
+		"grayscale",
+		"hotfixes",
+		"hovercard",
+		"issuecomment",
+		"lintable",
+		"mtfoley",
+		"octo.guide",
+		"octocat",
+		"octoguide",
+		"postbuild",
+		"screenreaders",
+		"unminimize",
+		"unminimized",
+		"varela"
+	]
+}
