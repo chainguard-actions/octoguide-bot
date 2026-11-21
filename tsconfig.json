@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"declarationMap": true,
+		"erasableSyntaxOnly": true,
+		"esModuleInterop": true,
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"outDir": "lib",
+		"resolveJsonModule": true,
+		"rewriteRelativeImportExtensions": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "ES2022",
+		"types": ["node"]
+	},
+	"include": ["src"]
+}

@@ -1,0 +1,19 @@
+verbose = "info"
+no_progress = true
+
+# Base URL or website root directory to check relative URLs.
+base_url = "https://octo.guide/"
+
+extensions = ["html", "js", "md", "mdx", "rst", "ts"]
+
+exclude_path = [
+	"(^|/)coverage(/|$)",
+	"(^|/)dist(/|$)",
+	"(^|/)dist-site(/|$)",
+	"(^|/)node_modules(/|$)",
+	"\\.test\\.(js|ts)$",
+]
+
+exclude = [
+	"^https://github\\.com/owner/repo/security/dependabot/123$",
+]
