@@ -35,6 +35,7 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 | 0.33.0 | [`0.33.0`](https://github.com/chainguard-actions/octoguide-bot/tree/0.33.0) | [`95af986`](https://github.com/octoguide/bot/commit/95af986081bee9208897c7ad8e056b19fadf2dc9) | [`HARDENING.md`](https://github.com/chainguard-actions/octoguide-bot/blob/0.33.0/HARDENING.md) |
 | 0.33.1 | [`0.33.1`](https://github.com/chainguard-actions/octoguide-bot/tree/0.33.1) | [`8d29abc`](https://github.com/octoguide/bot/commit/8d29abce6793b35c6bfab51d4db6bfa62634b871) | [`HARDENING.md`](https://github.com/chainguard-actions/octoguide-bot/blob/0.33.1/HARDENING.md) |
 | 0.33.2 | [`0.33.2`](https://github.com/chainguard-actions/octoguide-bot/tree/0.33.2) | [`d53d943`](https://github.com/octoguide/bot/commit/d53d94360c3733a79a8c19933410df5c2a0c6011) | [`HARDENING.md`](https://github.com/chainguard-actions/octoguide-bot/blob/0.33.2/HARDENING.md) |
+| 0.33.3 | [`0.33.3`](https://github.com/chainguard-actions/octoguide-bot/tree/0.33.3) | [`95f70ef`](https://github.com/octoguide/bot/commit/95f70efd5aebcda2de8595fbd0a413db48bcfd58) | [`HARDENING.md`](https://github.com/chainguard-actions/octoguide-bot/blob/0.33.3/HARDENING.md) |
 
 ## Privacy
 
