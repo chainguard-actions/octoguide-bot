@@ -1,6 +1,16 @@
 {
   "owner": "octoguide",
   "repo": "bot",
-  "version": "",
-  "url": "https://github.com/octoguide/bot"
+  "version": "0.33.3",
+  "commit_sha": "95f70efd5aebcda2de8595fbd0a413db48bcfd58",
+  "url": "https://github.com/octoguide/bot",
+  "policy_sha": "374911c4be584df24e6da57af2d990570ef0f859",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "2",
+  "harden_agent_version": "2",
+  "dist_artifact": {
+    "gcs_uri": "gs://patch-actions-node-artifacts/dist-artifacts/octoguide/bot/0.33.3/sha256-9e46ea08286af2967e8d7a1804da63fc4e141f1086bb517c6ba48fcf54777ff6.tar.gz",
+    "sha256": "9e46ea08286af2967e8d7a1804da63fc4e141f1086bb517c6ba48fcf54777ff6",
+    "size_bytes": 788442
+  }
 }
